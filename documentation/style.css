@@ -1,0 +1,18 @@
+
+body {
+    max-width: 900px;
+    margin: 40px auto;
+    font-family: Arial, sans-serif;
+    line-height: 1.5;
+}  h1 {
+       margin-bottom: 30px;
+   }  h2 {
+          margin-top: 30px;
+          margin-bottom: 10px;
+      }  h3 {
+             margin-top: 15px;
+             margin-bottom: 5px;
+         }  p {
+                margin-top: 0;
+                margin-bottom: 15px;
+            }
