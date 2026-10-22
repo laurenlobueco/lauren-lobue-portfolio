@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
 
@@ -33,10 +32,7 @@
             <a href="#contact" class="hover:underline">Contact</a>
         </div>
 
-        <a href="#contact"
-           class="hidden md:inline-block bg-neutral-900
-                  text-white text-sm px-5 py-3
-                  hover:bg-neutral-700 transition">
+        <a href="#contact" class="brand-button hidden md:inline-block">
             Book a Consult
         </a>
 
@@ -64,7 +60,7 @@
                     flex items-center justify-center">
 
             <span class="text-neutral-500 text-sm">
-                Hero Image
+                Fun Lo Pic
             </span>
             </div>
 
@@ -82,13 +78,10 @@
                     Helping founders turn ideas and products
                     into clearly positioned brands with
                     actionable marketing and go-to-market
-                    strategies built for limited resources.
+                    strategies built for all budgets.
                 </p>
 
-                <a href="#contact"
-                   class="inline-block bg-neutral-900 text-white
-                      px-8 py-4 text-sm font-semibold
-                      hover:bg-neutral-700 transition">
+                <a href="#contact" class="brand-button">
                     Let's Talk
                 </a>
             </div>
@@ -97,86 +90,65 @@
     </section>
 
 
-    <!-- SECTION 2: THE STRATEGY (PUll scroll animation from Drew Barrymore site later)
-         will add in main.js -->
+    <!-- SECTION 2: THE STRATEGY (kill me now on this section )-->
 
-    <section id="strategy"
-             class="bg-neutral-100 py-24 md:py-32">
+    <section id="strategy" class="strategy-section">
 
-        <div class="mx-auto max-w-6xl px-6
-                grid grid-cols-1 md:grid-cols-2
-                gap-12 md:gap-20">
+        <!-- Provides scrolling distance for the animation -->
+        <div id="strategy-scroll" class="strategy-scroll">
 
-            <!-- LEFT CONTENT -->
-            <div>
-                <p class="text-xs uppercase tracking-widest
-                      text-neutral-500 mb-8">
-                    The Strategy
-                </p>
+            <!-- Stays visible while the words animate -->
+            <div class="strategy-sticky">
 
-                <h2 class="text-3xl md:text-4xl
-                       font-bold leading-tight mb-6">
-                    Building something is<br>
-                    only the beginning.
-                </h2>
+                <div class="strategy-content">
 
-                <p class="text-neutral-600 max-w-sm mb-8">
-                    Turning an idea into a successful business
-                    takes more than a great product.
-                    It takes strategy, positioning, and
-                    a clear path to market.
-                </p>
+                    <p class="strategy-heading">
+                        THE STRATEGY
+                    </p>
 
-                <div class="border border-neutral-300
-                        bg-white p-4 max-w-xs text-sm">
-                    A strong strategy connects every
-                    piece of the puzzle.
+                    <!-- Visible window for the word wheel -->
+                    <div class="strategy-wheel">
+
+                        <div id="strategy-reel" class="strategy-reel">
+
+                            <span class="strategy-word">Discover</span>
+                            <span class="strategy-word">Research</span>
+                            <span class="strategy-word">Understand</span>
+                            <span class="strategy-word">Analyze</span>
+                            <span class="strategy-word">Define</span>
+                            <span class="strategy-word">Position</span>
+                            <span class="strategy-word">Differentiate</span>
+                            <span class="strategy-word">Validate</span>
+                            <span class="strategy-word">Protect</span>
+                            <span class="strategy-word">Build</span>
+                            <span class="strategy-word">Brand</span>
+                            <span class="strategy-word">Connect</span>
+                            <span class="strategy-word">Launch</span>
+                            <span class="strategy-word">Measure</span>
+                            <span class="strategy-word">Grow</span>
+
+                        </div>
+
+                    </div>
+
+                    <p class="strategy-caption">
+                        Every great idea needs a strategy.
+                    </p>
+
                 </div>
-            </div>
-
-            <!-- ANIMATED WORDS -->
-            <div id="strategy-words"
-                 class="flex flex-col justify-center
-                    items-start gap-2">
-
-            <span class="strategy-word text-2xl text-neutral-400">
-                Understand
-            </span>
-
-                <span class="strategy-word text-2xl text-neutral-400">
-                Position
-            </span>
-
-                <span class="strategy-word text-2xl text-neutral-400">
-                Differentiate
-            </span>
-
-                <span class="strategy-word text-4xl font-bold
-                         border-l-2 border-neutral-900 pl-4">
-                Protect
-            </span>
-
-                <span class="strategy-word text-2xl text-neutral-400">
-                Brand
-            </span>
-
-                <span class="strategy-word text-2xl text-neutral-400">
-                Launch
-            </span>
-
-                <span class="strategy-word text-2xl text-neutral-400">
-                Grow
-            </span>
 
             </div>
 
         </div>
+
     </section>
+
+    <!-- END SECTION 2 -->
 
 
     <!-- SECTION 3: WHAT I HELP FOUNDERS DO-->
 
-    <section id="services" class="py-24">
+    <section id="services" class="py-12">
 
         <div class="mx-auto max-w-6xl px-6">
 
@@ -319,16 +291,13 @@
 
             <p class="text-sm md:text-lg font-semibold
                   uppercase tracking-wide mb-10">
-                Business · Customer · Market · Budget
-                · Your Marketing Mix
+                Customer Discovery · Market Insights · Consumer Messaging
+                · Your Go-To-Market Strategy
             </p>
 
-            <a href="#contact"
-               class="inline-block border border-neutral-900
-                  px-8 py-4 text-sm font-semibold
-                  hover:bg-neutral-900 hover:text-white
-                  transition">
-                Build My Go-to-Market Plan
+            <!-- GO-TO-MARKET BUTTON -->
+            <a href="#contact" class="brand-button">
+                Build My Strategy
             </a>
 
         </div>
@@ -481,72 +450,10 @@
                     </div>
                 </article>
 
-                <!-- CASE STUDY 5 -->
-                <article class="border border-neutral-300">
-
-                    <div class="h-56 bg-neutral-200
-                            flex items-center justify-center
-                            text-neutral-500 text-sm">
-                        Innovation Project Image
-                    </div>
-
-                    <div class="p-7">
-                        <p class="text-xs uppercase
-                              tracking-widest text-neutral-500 mb-3">
-                            Intellectual Property & Commercialization
-                        </p>
-
-                        <h3 class="text-xl font-bold mb-4">
-                            Patents & Trademarks
-                        </h3>
-
-                        <p class="text-sm text-neutral-600 mb-4">
-                            Challenge: Protecting and
-                            positioning new products
-                            for commercialization.
-                        </p>
-
-                        <p class="text-sm font-semibold">
-                            Lauren's role: IP strategy
-                            and commercialization planning
-                        </p>
-                    </div>
-                </article>
-
-                <!-- CASE STUDY 6 -->
-                <article class="border border-neutral-300">
-
-                    <div class="h-56 bg-neutral-200
-                            flex items-center justify-center
-                            text-neutral-500 text-sm">
-                        Startup Alliance Project Image
-                    </div>
-
-                    <div class="p-7">
-                        <p class="text-xs uppercase
-                              tracking-widest text-neutral-500 mb-3">
-                            Ecosystem & Growth
-                        </p>
-
-                        <h3 class="text-xl font-bold mb-4">
-                            Founder/Operator Work · NM Startup Alliance
-                        </h3>
-
-                        <p class="text-sm text-neutral-600 mb-4">
-                            Challenge: Helping the startup
-                            community develop clearer
-                            strategies, build connections,
-                            and move ideas forward.
-                        </p>
-
-                        <p class="text-sm font-semibold">
-                            Lauren's role: One-on-one
-                            strategy, workshops, and growth
-                        </p>
-                    </div>
-                </article>
-
             </div>
+            </article>
+
+        </div>
         </div>
     </section>
 
@@ -694,7 +601,7 @@
                     flex items-center justify-center">
 
             <span class="text-neutral-500 text-sm">
-                Lauren Portrait Image
+                Lauren Fun Pic
             </span>
             </div>
 
@@ -819,10 +726,7 @@
                     market, and where to focus first.
                 </p>
 
-                <a href="#contact-form"
-                   class="inline-block bg-white text-neutral-900
-                      px-8 py-4 text-sm font-semibold
-                      hover:bg-neutral-200 transition">
+                <a href="#contact-form" class="brand-button-dark">
                     Book a Consultation
                 </a>
             </div>
@@ -882,14 +786,9 @@
                                  text-white p-3"></textarea>
                 </div>
 
-                <button type="submit"
-                        class="bg-white text-neutral-900
-                           px-8 py-4 text-sm font-semibold
-                           hover:bg-neutral-200 transition
-                           cursor-pointer">
+                <button type="submit" class="brand-button-dark">
                     Send Message
                 </button>
-
 
 
             </form>

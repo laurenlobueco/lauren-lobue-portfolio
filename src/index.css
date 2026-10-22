@@ -2,3 +2,210 @@
 @import "flowbite/src/themes/default.css";
 @plugin "flowbite/plugin";
 @source "../node_modules/flowbite";
+
+/* Button turns white with black text throughout the page */
+.brand-button {
+    @apply inline-block bg-white
+    border-2 border-neutral-900
+    rounded-2xl px-10 py-4
+    text-base font-bold
+    tracking-widest text-neutral-900
+    text-center cursor-pointer
+    transition-colors duration-300;
+}
+
+.brand-button:hover {
+    @apply bg-neutral-900 text-white;
+}
+
+
+.brand-button-dark {
+    @apply inline-block
+    bg-neutral-900 text-white
+    border-2 border-white
+    rounded-2xl
+    px-10 py-4
+    text-base font-bold
+    tracking-widest
+    text-center cursor-pointer
+    transition-colors duration-300;
+}
+
+/* Form button turns white with black text in the form at the bottom */
+.brand-button-dark:hover {
+    @apply bg-white text-neutral-900;
+}
+
+
+/* SECTION 2: STRATEGY SCROLL WHEEL */
+
+/* Entire Strategy section */
+.strategy-section {
+    position: relative;
+    background-color: #f5f5f5;
+    --strategy-panel-h: 680px;
+}
+
+
+
+/* Controls how long the word animation lasts */
+/* Total height = panel height + scroll "runway".
+   The vh number is how far the visitor scrolls while the words move.
+   Lower it if the animation feels too long; raise it if words move too fast. */
+.strategy-scroll {
+    position: relative;
+    height: calc(var(--strategy-panel-h) + 130vh);
+}
+
+/* Holds the Strategy content in place while words move */
+.strategy-sticky {
+    position: sticky;
+    top: max(0px, calc((100vh - var(--strategy-panel-h)) / 2));
+    height: min(var(--strategy-panel-h), 100vh);
+
+    display: flex;
+    /* "safe" keeps content from spilling above the panel
+       if the screen is too short to fit everything */
+    align-items: safe center;
+    justify-content: center;
+
+    background-color: #f5f5f5;
+}
+
+/* Keeps the visible content compact */
+.strategy-content {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 10px;
+    text-align: center;
+}
+
+
+/* Small section heading */
+.strategy-heading {
+    color: #737373;
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    margin-bottom: clamp(24px, 5vh, 56px);
+}
+
+/* Visible word wheel */
+/* Height follows the screen's width AND height */
+
+.strategy-wheel {
+    position: relative;
+    height: clamp(220px, min(30vw, 40vh), 440px);
+    overflow: hidden;
+
+    -webkit-mask-image: linear-gradient(
+            to bottom,
+            transparent 0%,
+            black 15%,
+            black 60%,
+            transparent 100%
+    );
+
+    mask-image: linear-gradient(
+            to bottom,
+            transparent 0%,
+            black 15%,
+            black 60%,
+            transparent 100%
+    );
+}
+
+/* Column containing all scrolly words */
+.strategy-reel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    will-change: transform;
+}
+
+/* Individual word formatting in scroll */
+
+.strategy-word {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 1.8em;
+    flex-shrink: 0;
+
+    color: #171717;
+    font-size: clamp(28px, min(5.5vw, 7vh), 72px);
+    font-weight: 300;
+    line-height: 1;
+    white-space: nowrap;
+
+    opacity: 0.2;
+    transform-origin: center;
+    will-change: transform, opacity;
+}
+
+/* Caption below wheel */
+/* Space above the caption matches the space below the heading */
+.strategy-caption {
+    margin-top: clamp(24px, 5vh, 56px);
+    color: #737373;
+    font-size: 20px;
+    letter-spacing: 0.03em;
+}
+
+/* Mobile adjustments */
+@media (max-width: 767px) {
+
+    /* Shorter panel on mobile — the sticky rule above
+       uses this automatically, so no separate top/height needed. */
+    .strategy-section {
+        --strategy-panel-h: 480px;
+    }
+
+    /* Slightly shorter runway on mobile */
+    .strategy-scroll {
+        height: calc(var(--strategy-panel-h) + 60vh);
+    }
+
+    .strategy-content {
+        padding: 20px 16px;
+    }
+
+    /* Tighter spacing on phones */
+    .strategy-heading {
+        margin-bottom: 32px;
+    }
+
+    .strategy-caption {
+        margin-top: 32px;
+    }
+
+    .strategy-wheel {
+        height: 260px;
+    }
+
+    .strategy-word {
+        height: 64px;
+        font-size: 21px;
+    }
+}
+
+/* Reduced motion accessibility ( not sure why i need this)*/
+@media (prefers-reduced-motion: reduce) {
+
+    .strategy-scroll {
+        height: auto;
+    }
+
+    .strategy-sticky {
+        position: relative;
+        top: auto;
+    }
+
+    .strategy-reel,
+    .strategy-word {
+        will-change: auto;
+    }
+}
