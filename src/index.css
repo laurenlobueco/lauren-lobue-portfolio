@@ -43,25 +43,24 @@
 .strategy-section {
     position: relative;
     background-color: #f5f5f5;
-    --strategy-panel-h: 680px;
+
+    /* How far the visitor scrolls while the words move.
+       Lower it if the section feels too long; raise it if words move too fast. */
+    --strategy-runway: 80vh;
 }
 
-
-
-/* Controls how long the word animation lasts */
-/* Total height = panel height + scroll "runway".
-   The vh number is how far the visitor scrolls while the words move.
-   Lower it if the animation feels too long; raise it if words move too fast. */
+/* Total height = one full screen (the sticky panel) + the runway */
 .strategy-scroll {
     position: relative;
-    height: calc(var(--strategy-panel-h) + 130vh);
+    height: calc(100svh + var(--strategy-runway));
 }
 
-/* Holds the Strategy content in place while words move */
+/* Holds the Strategy content in place while words move.
+   It fills the whole screen, so nothing else peeks in while it's locked. */
 .strategy-sticky {
     position: sticky;
-    top: max(0px, calc((100vh - var(--strategy-panel-h)) / 2));
-    height: min(var(--strategy-panel-h), 100vh);
+    top: 0;
+    height: 100svh;
 
     display: flex;
     /* "safe" keeps content from spilling above the panel
@@ -102,16 +101,17 @@
     -webkit-mask-image: linear-gradient(
             to bottom,
             transparent 0%,
-            black 15%,
-            black 60%,
+            black 35%,
+            black 65%,
             transparent 100%
     );
 
+    /* Symmetrical fade: the active word sits in the middle of the wheel */
     mask-image: linear-gradient(
             to bottom,
             transparent 0%,
-            black 15%,
-            black 60%,
+            black 35%,
+            black 65%,
             transparent 100%
     );
 }
@@ -158,15 +158,9 @@
 /* Mobile adjustments */
 @media (max-width: 767px) {
 
-    /* Shorter panel on mobile — the sticky rule above
-       uses this automatically, so no separate top/height needed. */
-    .strategy-section {
-        --strategy-panel-h: 480px;
-    }
-
     /* Slightly shorter runway on mobile */
-    .strategy-scroll {
-        height: calc(var(--strategy-panel-h) + 60vh);
+    .strategy-section {
+        --strategy-runway: 60vh;
     }
 
     .strategy-content {

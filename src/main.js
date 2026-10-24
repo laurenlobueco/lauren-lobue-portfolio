@@ -29,12 +29,9 @@ if (
 
     const totalWords = strategyWords.length
 
-    function getStickyTop() {
-        return parseFloat(getComputedStyle(strategySticky).top) || 0
-    }
-
+    // The active word lines up with the middle of the wheel
     function getFocusLine() {
-        return strategyWords[0].offsetHeight * 1
+        return strategyWheel.offsetHeight / 2
     }
 
     /**
@@ -110,20 +107,20 @@ if (
                 // Track the outer scrolling container
                 trigger: strategyScroll,
 
-                // Begin when the panel locks in place:
-                // the container's top reaches the panel's sticky "top" line
-                start: () => `top ${getStickyTop()}px`,
+                // Begin when the panel locks in place
+                // (container's top hits the top of the screen)
+                start: 'top top',
 
-                // Finish when the panel lets go:
-                // the container's bottom reaches the panel's bottom edge
-                end: () => `bottom ${getStickyTop() + strategySticky.offsetHeight}px`,
+                // Finish when the panel lets go
+                // (container's bottom hits the bottom of the screen)
+                end: 'bottom bottom',
 
                 // Follow scrolling
                 scrub: true,
 
 
-                // Recalculate start/end on resize
-                // (panel height and top change between desktop and mobile)
+                // Recalculate the reel position on resize
+                // (wheel and word sizes change between desktop and mobile)
                 invalidateOnRefresh: true,
 
                 onUpdate: (self) => {
