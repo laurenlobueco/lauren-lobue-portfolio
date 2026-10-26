@@ -10,6 +10,12 @@
           content="Lauren LoBue helps founders build brands, find markets, and develop strategies for growth.">
 
     <title>Lauren LoBue | Brand & Growth Strategy</title>
+
+    <!-- Serif font for the hero headline (matches laurenlobue.co) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400&display=swap"
+          rel="stylesheet">
 </head>
 
 <body class="bg-white text-neutral-900 antialiased">
@@ -17,12 +23,14 @@
 <!-- NAVIGATION -->
 
 <nav class="border-b border-neutral-200 bg-white">
-    <div class="mx-auto max-w-6xl px-6 py-5
+    <div class="mx-auto max-w-7xl px-6 py-5
                 flex items-center justify-between gap-6">
 
-        <a href="#home"
-           class="text-sm font-bold uppercase tracking-wider"> <!-- Placeholder for my logo-->
-            Lauren LoBue
+        <!-- LOGO: links back to the top of the page -->
+        <a href="#home" class="shrink-0">
+            <img src="/images/lauren-logo.svg"
+                 alt="Lauren LoBue"
+                 class="h-14 md:h-20 w-auto">
         </a>
 
         <div class="hidden md:flex items-center gap-8 text-sm">
@@ -32,7 +40,7 @@
             <a href="#contact" class="hover:underline">Contact</a>
         </div>
 
-        <a href="#contact" class="brand-button hidden md:inline-block">
+        <a href="#contact" class="brand-button-outline hidden md:inline-block">
             Book a Consult
         </a>
 
@@ -48,40 +56,42 @@
 
     <!-- SECTION 1: HERO -->
 
-    <section id="home" class="py-16 md:py-24">
+    <!-- Phones and tablets: photo on top, text below.
+         Laptop and up: the photo fills the hero below the white nav bar,
+         text sits on the left. Layout based on laurenlobue.co -->
+    <!-- min-h: one screen tall minus the nav bar (7.5rem: 5rem logo + 2.5rem padding), so nav + hero fit one screen -->
+    <section id="home"
+             class="relative lg:flex lg:items-center lg:min-h-[calc(100svh-7.5rem)]">
 
-        <div class="mx-auto max-w-6xl px-6
-                grid grid-cols-1 md:grid-cols-2
-                gap-12 items-center">
+        <!-- HERO BACKGROUND IMAGE -->
+        <!-- object-position keeps Lauren in frame when the image is cropped:
+             anchored to the top so her head isn't cut off -->
+        <img src="/images/lauren-hero-smile.jpg"
+             alt="Lauren LoBue smiling, seated on a wooden stool in a cream linen suit"
+             class="w-full h-80 md:h-auto md:aspect-video object-cover object-[75%_top]
+                    lg:absolute lg:inset-0 lg:h-full lg:aspect-auto lg:object-[70%_top]">
 
-            <!-- HERO IMAGE placeholder -->
-            <div class="aspect-square bg-neutral-200
-                    border border-neutral-300
-                    flex items-center justify-center">
-
-            <span class="text-neutral-500 text-sm">
-                Fun Lo Pic
-            </span>
-            </div>
+        <div class="relative w-full mx-auto max-w-7xl px-6 py-12 lg:pt-32 xl:pt-44 lg:pb-12">
 
             <!-- HERO CONTENT -->
-            <div>
-                <h1 class="text-4xl md:text-6xl
-                       font-bold leading-tight mb-8">
+            <!-- Thin vertical line on the left of the text (laptop and up) -->
+            <div class="lg:border-l lg:border-neutral-800 lg:pl-8 lg:py-2">
+                <h1 class="font-serif font-normal text-4xl md:text-6xl
+                       leading-tight mb-6 lg:mb-4">
                     Build the brand.<br>
                     Find the market.<br>
                     Bring it to life.
                 </h1>
 
-                <p class="text-neutral-600 leading-relaxed
-                      max-w-md mb-10">
+                <p class="text-neutral-700 lg:text-neutral-900 lg:text-lg leading-relaxed
+                      max-w-md lg:max-w-sm xl:max-w-lg mb-8 lg:mb-6">
                     Helping founders turn ideas and products
                     into clearly positioned brands with
                     actionable marketing and go-to-market
                     strategies built for all budgets.
                 </p>
 
-                <a href="#contact" class="brand-button">
+                <a href="#contact" class="brand-button-outline">
                     Let's Talk
                 </a>
             </div>
@@ -99,6 +109,14 @@
 
             <!-- Stays visible while the words animate -->
             <div class="strategy-sticky">
+
+                <!-- Photo on the left, word wheel on the right
+                     (photo stacks on top on phones and tablets) -->
+                <div class="strategy-layout">
+
+                <img src="/images/lauren-strategy.png"
+                     alt="Lauren LoBue smiling over her shoulder while pinning notes to a brand strategy mood board"
+                     class="strategy-photo">
 
                 <div class="strategy-content">
 
@@ -137,6 +155,8 @@
 
                 </div>
 
+                </div>
+
             </div>
 
         </div>
@@ -150,14 +170,14 @@
 
     <section id="services" class="py-12">
 
-        <div class="mx-auto max-w-6xl px-6">
+        <div class="mx-auto max-w-7xl px-6">
 
             <p class="text-xs uppercase tracking-widest
                   text-neutral-500 mb-4">
                 What I Do
             </p>
 
-            <h2 class="text-3xl md:text-4xl font-bold mb-4">
+            <h2 class="text-3xl md:text-4xl font-serif font-normal mb-4">
                 What I help founders do
             </h2>
 
@@ -277,7 +297,7 @@
                 Strategy Before Spend
             </p>
 
-            <h2 class="text-3xl md:text-4xl font-bold mb-6">
+            <h2 class="text-3xl md:text-4xl font-serif font-normal mb-6">
                 Make your marketing dollars work harder.
             </h2>
 
@@ -296,7 +316,7 @@
             </p>
 
             <!-- GO-TO-MARKET BUTTON -->
-            <a href="#contact" class="brand-button">
+            <a href="#contact" class="brand-button-outline">
                 Build My Strategy
             </a>
 
@@ -308,14 +328,14 @@
 
     <section id="work" class="py-24">
 
-        <div class="mx-auto max-w-6xl px-6">
+        <div class="mx-auto max-w-7xl px-6">
 
             <p class="text-xs uppercase tracking-widest
                   text-neutral-500 mb-4">
                 Selected Work
             </p>
 
-            <h2 class="text-3xl md:text-4xl font-bold mb-12">
+            <h2 class="text-3xl md:text-4xl font-serif font-normal mb-12">
                 Problems solved, not just deliverables
             </h2>
 
@@ -501,14 +521,14 @@
 
     <section id="approach" class="py-24">
 
-        <div class="mx-auto max-w-6xl px-6">
+        <div class="mx-auto max-w-7xl px-6">
 
             <p class="text-xs uppercase tracking-widest
                   text-neutral-500 mb-4">
                 How I Work
             </p>
 
-            <h2 class="text-3xl md:text-4xl font-bold mb-16">
+            <h2 class="text-3xl md:text-4xl font-serif font-normal mb-16">
                 A clear path from idea to execution
             </h2>
 
@@ -592,18 +612,14 @@
 
     <section id="about" class="py-24">
 
-        <div class="mx-auto max-w-6xl px-6
+        <div class="mx-auto max-w-7xl px-6
                 grid grid-cols-1 md:grid-cols-2
                 gap-12 items-center">
 
-            <div class="aspect-square bg-neutral-200
-                    border border-neutral-300
-                    flex items-center justify-center">
-
-            <span class="text-neutral-500 text-sm">
-                Lauren Fun Pic
-            </span>
-            </div>
+            <!-- ABOUT IMAGE -->
+            <img src="/images/lauren-about.png"
+                 alt="Black and white photo of Lauren LoBue laughing, seated on the floor with a laptop and notebook"
+                 class="w-full aspect-[4/5] object-cover object-top">
 
             <div>
                 <p class="text-xs uppercase tracking-widest
@@ -612,7 +628,7 @@
                 </p>
 
                 <h2 class="text-3xl md:text-4xl
-                       font-bold mb-6">
+                       font-serif font-normal mb-6">
                     Founder first. Marketer, always.
                 </h2>
 
@@ -654,7 +670,7 @@
 
     <section class="py-20 bg-neutral-50">
 
-        <div class="mx-auto max-w-6xl px-6
+        <div class="mx-auto max-w-7xl px-6
                 grid grid-cols-1 md:grid-cols-2 gap-6">
 
             <blockquote class="border border-neutral-300
@@ -702,7 +718,7 @@
     <section id="contact"
              class="bg-neutral-900 text-white py-24">
 
-        <div class="mx-auto max-w-6xl px-6
+        <div class="mx-auto max-w-7xl px-6
                 grid grid-cols-1 md:grid-cols-2
                 gap-16">
 
@@ -714,7 +730,7 @@
                 </p>
 
                 <h2 class="text-4xl md:text-5xl
-                       font-bold leading-tight mb-8">
+                       font-serif font-normal leading-tight mb-8">
                     Building something?<br>
                     Let's bring it to market.
                 </h2>
@@ -726,7 +742,7 @@
                     market, and where to focus first.
                 </p>
 
-                <a href="#contact-form" class="brand-button-dark">
+                <a href="#contact-form" class="brand-button-outline-light">
                     Book a Consultation
                 </a>
             </div>
@@ -786,7 +802,7 @@
                                  text-white p-3"></textarea>
                 </div>
 
-                <button type="submit" class="brand-button-dark">
+                <button type="submit" class="brand-button-outline-light">
                     Send Message
                 </button>
 
@@ -803,7 +819,7 @@
 
 <footer class="bg-white py-12">
 
-    <div class="mx-auto max-w-6xl px-6
+    <div class="mx-auto max-w-7xl px-6
                 flex flex-col md:flex-row
                 justify-between gap-8">
 

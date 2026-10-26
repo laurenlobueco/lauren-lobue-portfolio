@@ -3,99 +3,154 @@
 @plugin "flowbite/plugin";
 @source "../node_modules/flowbite";
 
-/* Button turns white with black text throughout the page */
-.brand-button {
-    @apply inline-block bg-white
-    border-2 border-neutral-900
-    rounded-2xl px-10 py-4
-    text-base font-bold
-    tracking-widest text-neutral-900
+/* "font-serif" uses Playfair Display (loaded in index.html) */
+@theme {
+    --font-serif: "Playfair Display", Georgia, serif;
+}
+
+/* Base font size grows on big screens.
+   Tailwind sizes (text, spacing, max-w) are in rem, so the whole page
+   scales up together on large monitors instead of looking small.
+   Phones and laptops stay at 16px. */
+html {
+    font-size: clamp(16px, 0.5vw + 9px, 24px);
+}
+
+/* Buttons live in Tailwind's "components" layer so utility classes
+   placed on them (like "hidden md:inline-block") can still override them */
+@layer components {
+
+/* Outlined button with dashes on each side ("— Let's Talk —"),
+   matching laurenlobue.co. See-through, so it works over photos.
+   Used on light backgrounds; fills black on hover. */
+.brand-button-outline,
+.brand-button-outline-light {
+    @apply inline-block bg-transparent
+    border-[1.5px] border-neutral-900
+    rounded-lg px-4 py-3
+    font-semibold tracking-wide text-neutral-900
     text-center cursor-pointer
     transition-colors duration-300;
 }
 
-.brand-button:hover {
+/* The dashes are decoration only: the "/ ''" part tells
+   screen readers not to read them out */
+.brand-button-outline::before,
+.brand-button-outline-light::before {
+    content: "—" / "";
+    margin-right: 0.6em;
+}
+
+.brand-button-outline::after,
+.brand-button-outline-light::after {
+    content: "—" / "";
+    margin-left: 0.6em;
+}
+
+.brand-button-outline:hover {
     @apply bg-neutral-900 text-white;
 }
 
-
-.brand-button-dark {
-    @apply inline-block
-    bg-neutral-900 text-white
-    border-2 border-white
-    rounded-2xl
-    px-10 py-4
-    text-base font-bold
-    tracking-widest
-    text-center cursor-pointer
-    transition-colors duration-300;
+/* Same button for dark backgrounds (the contact section):
+   white outline and text, fills white on hover */
+.brand-button-outline-light {
+    @apply border-white text-white;
 }
 
-/* Form button turns white with black text in the form at the bottom */
-.brand-button-dark:hover {
+.brand-button-outline-light:hover {
     @apply bg-white text-neutral-900;
 }
+
+} /* end @layer components */
 
 
 /* SECTION 2: STRATEGY SCROLL WHEEL */
 
 /* Entire Strategy section */
+/* Gray here too, so the extra scroll space GSAP adds
+   while the panel is pinned is gray instead of white */
 .strategy-section {
     position: relative;
     background-color: #f5f5f5;
-
-    /* How far the visitor scrolls while the words move.
-       Lower it if the section feels too long; raise it if words move too fast. */
-    --strategy-runway: 80vh;
 }
 
-/* Total height = one full screen (the sticky panel) + the runway */
+/* Wrapper GSAP uses as the scroll trigger.
+   GSAP adds the extra scroll distance itself (see main.js), so no height here. */
 .strategy-scroll {
     position: relative;
-    height: calc(100svh + var(--strategy-runway));
 }
 
-/* Holds the Strategy content in place while words move.
-   It fills the whole screen, so nothing else peeks in while it's locked. */
+/* The panel GSAP pins while the words move.
+   It fills the screen, and the content below is sized to fill it. */
 .strategy-sticky {
-    position: sticky;
-    top: 0;
     height: 100svh;
-
     display: flex;
-    /* "safe" keeps content from spilling above the panel
-       if the screen is too short to fit everything */
-    align-items: safe center;
-    justify-content: center;
-
+    align-items: center;
     background-color: #f5f5f5;
 }
 
-/* Keeps the visible content compact */
+/* Phones and tablets: photo stacked on top of the word wheel */
+.strategy-layout {
+    width: 100%;
+    max-width: 80rem; /* same as max-w-7xl used by the other sections */
+    margin: 0 auto;
+    padding: 0 1.5rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3vh;
+}
+
+/* Sized by the screen height so photo + words fit while pinned */
+.strategy-photo {
+    height: 38svh;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    object-position: center 20%; /* keeps her face in frame */
+}
+
 .strategy-content {
     width: 100%;
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 10px;
     text-align: center;
+}
+
+/* Laptop and up: photo on the left, word wheel on the right */
+@media (min-width: 1024px) {
+
+    .strategy-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        gap: 4rem;
+    }
+
+    .strategy-photo {
+        height: 78svh;
+        justify-self: center;
+    }
 }
 
 
 /* Small section heading */
 .strategy-heading {
     color: #737373;
-    font-size: 20px;
+    font-size: 1.25rem;
     font-weight: 500;
     letter-spacing: 0.25em;
-    margin-bottom: clamp(24px, 5vh, 56px);
+    margin-bottom: 3vh;
 }
 
 /* Visible word wheel */
-/* Height follows the screen's width AND height */
+/* The font size lives here so the wheel can be exactly 3 word-rows tall
+   (previous word, active word, next word) with no empty space.
+   Words grow with the screen's width AND height so they fill the panel.
+   (Smaller on laptop and up, where the wheel only gets half the width.) */
 
 .strategy-wheel {
     position: relative;
-    height: clamp(220px, min(30vw, 40vh), 440px);
+    font-size: clamp(32px, min(9vw, 7vh), 96px);
+    height: calc(3 * 1.5em);
     overflow: hidden;
 
     -webkit-mask-image: linear-gradient(
@@ -132,12 +187,12 @@
     justify-content: center;
 
     width: 100%;
-    height: 1.8em;
+    height: 1.5em;
     flex-shrink: 0;
 
     color: #171717;
-    font-size: clamp(28px, min(5.5vw, 7vh), 72px);
-    font-weight: 300;
+    font-family: var(--font-serif); /* same serif as the headlines */
+    font-weight: 400;
     line-height: 1;
     white-space: nowrap;
 
@@ -149,54 +204,41 @@
 /* Caption below wheel */
 /* Space above the caption matches the space below the heading */
 .strategy-caption {
-    margin-top: clamp(24px, 5vh, 56px);
+    margin-top: 3vh;
     color: #737373;
-    font-size: 20px;
+    font-size: 1.25rem;
     letter-spacing: 0.03em;
+}
+
+/* Laptop and up: more breathing room, wheel sized for its half-width column */
+@media (min-width: 1024px) {
+
+    .strategy-heading {
+        margin-bottom: 6vh;
+    }
+
+    .strategy-caption {
+        margin-top: 6vh;
+    }
+
+    .strategy-wheel {
+        font-size: clamp(32px, min(4vw, 10vh), 140px);
+    }
 }
 
 /* Mobile adjustments */
 @media (max-width: 767px) {
 
-    /* Slightly shorter runway on mobile */
-    .strategy-section {
-        --strategy-runway: 60vh;
-    }
-
-    .strategy-content {
-        padding: 20px 16px;
-    }
-
-    /* Tighter spacing on phones */
-    .strategy-heading {
-        margin-bottom: 32px;
-    }
-
+    .strategy-heading,
     .strategy-caption {
-        margin-top: 32px;
-    }
-
-    .strategy-wheel {
-        height: 260px;
-    }
-
-    .strategy-word {
-        height: 64px;
-        font-size: 21px;
+        font-size: 1rem;
     }
 }
 
-/* Reduced motion accessibility ( not sure why i need this)*/
+/* Reduced motion accessibility: some visitors turn off animations
+   in their device settings (motion can cause dizziness).
+   main.js skips the pin and word animation for them. */
 @media (prefers-reduced-motion: reduce) {
-
-    .strategy-scroll {
-        height: auto;
-    }
-
-    .strategy-sticky {
-        position: relative;
-        top: auto;
-    }
 
     .strategy-reel,
     .strategy-word {
