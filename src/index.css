@@ -144,12 +144,13 @@ html {
 /* Visible word wheel */
 /* The font size lives here so the wheel can be exactly 3 word-rows tall
    (previous word, active word, next word) with no empty space.
-   Words grow with the screen's width AND height so they fill the panel.
-   (Smaller on laptop and up, where the wheel only gets half the width.) */
+   The active word matches the hero headline (text-4xl, md:text-6xl).
+   main.js scales the active word up 1.3x, so the base size is the
+   headline size divided by 1.3. */
 
 .strategy-wheel {
     position: relative;
-    font-size: clamp(32px, min(9vw, 7vh), 96px);
+    font-size: calc(2.25rem / 1.3);
     height: calc(3 * 1.5em);
     overflow: hidden;
 
@@ -210,7 +211,15 @@ html {
     letter-spacing: 0.03em;
 }
 
-/* Laptop and up: more breathing room, wheel sized for its half-width column */
+/* Tablet and up: matches the headline's md:text-6xl */
+@media (min-width: 768px) {
+
+    .strategy-wheel {
+        font-size: calc(3.75rem / 1.3);
+    }
+}
+
+/* Laptop and up: more breathing room */
 @media (min-width: 1024px) {
 
     .strategy-heading {
@@ -219,10 +228,6 @@ html {
 
     .strategy-caption {
         margin-top: 6vh;
-    }
-
-    .strategy-wheel {
-        font-size: clamp(32px, min(4vw, 10vh), 140px);
     }
 }
 
@@ -243,5 +248,102 @@ html {
     .strategy-reel,
     .strategy-word {
         will-change: auto;
+    }
+}
+/* SECTION 3: SERVICE CARD MICRO INTERACTIONS */
+
+/* On hover the card lifts, its border darkens, a soft spotlight
+   follows the cursor, the number badge pops, and a line draws
+   across the bottom. main.js feeds the cursor position into --x / --y. */
+.service-card {
+    --x: 50%;
+    --y: 50%;
+    isolation: isolate; /* keeps the spotlight behind the text */
+    background-color: #fff;
+    transition:
+            transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+            border-color 0.35s ease,
+            box-shadow 0.35s ease;
+}
+
+/* Spotlight that follows the cursor */
+.service-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: radial-gradient(
+            circle 220px at var(--x) var(--y),
+            rgba(23, 23, 23, 0.06),
+            transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    pointer-events: none;
+}
+
+/* Accent line that draws left to right along the bottom */
+.service-card::after {
+    content: "";
+    position: absolute;
+    left: -1px;
+    right: -1px;
+    bottom: -1px;
+    height: 3px;
+    background-color: #171717;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.service-number {
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.service-card h3 {
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Hover only on devices with a real mouse, so taps on phones
+   don't leave a card stuck in its highlighted state */
+@media (hover: hover) and (pointer: fine) {
+
+    .service-card:hover {
+        transform: translateY(-6px);
+        border-color: #171717;
+        box-shadow: 0 18px 40px -20px rgba(23, 23, 23, 0.35);
+    }
+
+    .service-card:hover::before {
+        opacity: 1;
+    }
+
+    .service-card:hover::after {
+        transform: scaleX(1);
+    }
+
+    .service-card:hover .service-number {
+        transform: scale(1.15) rotate(-8deg);
+    }
+
+    .service-card:hover h3 {
+        transform: translateX(4px);
+    }
+}
+
+/* Reduced motion: keep the color highlight, drop the movement */
+@media (prefers-reduced-motion: reduce) {
+
+    .service-card,
+    .service-card::after,
+    .service-number,
+    .service-card h3 {
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .service-card:hover,
+    .service-card:hover .service-number,
+    .service-card:hover h3 {
+        transform: none;
     }
 }
