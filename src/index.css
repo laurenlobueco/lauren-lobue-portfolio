@@ -3,115 +3,171 @@
 @plugin "flowbite/plugin";
 @source "../node_modules/flowbite";
 
-/* Button turns white with black text throughout the page */
-.brand-button {
-    @apply inline-block bg-white
-    border-2 border-neutral-900
-    rounded-2xl px-10 py-4
-    text-base font-bold
-    tracking-widest text-neutral-900
+/* "font-serif" uses Playfair Display (loaded in index.html) */
+@theme {
+    --font-serif: "Playfair Display", Georgia, serif;
+}
+
+/* Base font size grows on big screens.
+   Tailwind sizes (text, spacing, max-w) are in rem, so the whole page
+   scales up together on large monitors instead of looking small.
+   Phones and laptops stay at 16px. */
+html {
+    font-size: clamp(16px, 0.5vw + 9px, 24px);
+}
+
+/* Buttons live in Tailwind's "components" layer so utility classes
+   placed on them (like "hidden md:inline-block") can still override them */
+@layer components {
+
+/* Outlined button with dashes on each side ("— Let's Talk —"),
+   matching laurenlobue.co. See-through, so it works over photos.
+   Used on light backgrounds; fills black on hover. */
+.brand-button-outline,
+.brand-button-outline-light {
+    @apply inline-block bg-transparent
+    border-[1.5px] border-neutral-900
+    rounded-lg px-4 py-3
+    font-semibold tracking-wide text-neutral-900
     text-center cursor-pointer
     transition-colors duration-300;
 }
 
-.brand-button:hover {
+/* The dashes are decoration only: the "/ ''" part tells
+   screen readers not to read them out */
+.brand-button-outline::before,
+.brand-button-outline-light::before {
+    content: "—" / "";
+    margin-right: 0.6em;
+}
+
+.brand-button-outline::after,
+.brand-button-outline-light::after {
+    content: "—" / "";
+    margin-left: 0.6em;
+}
+
+.brand-button-outline:hover {
     @apply bg-neutral-900 text-white;
 }
 
-
-.brand-button-dark {
-    @apply inline-block
-    bg-neutral-900 text-white
-    border-2 border-white
-    rounded-2xl
-    px-10 py-4
-    text-base font-bold
-    tracking-widest
-    text-center cursor-pointer
-    transition-colors duration-300;
+/* Same button for dark backgrounds (the contact section):
+   white outline and text, fills white on hover */
+.brand-button-outline-light {
+    @apply border-white text-white;
 }
 
-/* Form button turns white with black text in the form at the bottom */
-.brand-button-dark:hover {
+.brand-button-outline-light:hover {
     @apply bg-white text-neutral-900;
 }
+
+} /* end @layer components */
 
 
 /* SECTION 2: STRATEGY SCROLL WHEEL */
 
 /* Entire Strategy section */
+/* Gray here too, so the extra scroll space GSAP adds
+   while the panel is pinned is gray instead of white */
 .strategy-section {
     position: relative;
     background-color: #f5f5f5;
-    --strategy-panel-h: 680px;
 }
 
-
-
-/* Controls how long the word animation lasts */
-/* Total height = panel height + scroll "runway".
-   The vh number is how far the visitor scrolls while the words move.
-   Lower it if the animation feels too long; raise it if words move too fast. */
+/* Wrapper GSAP uses as the scroll trigger.
+   GSAP adds the extra scroll distance itself (see main.js), so no height here. */
 .strategy-scroll {
     position: relative;
-    height: calc(var(--strategy-panel-h) + 130vh);
 }
 
-/* Holds the Strategy content in place while words move */
+/* The panel GSAP pins while the words move.
+   It fills the screen, and the content below is sized to fill it. */
 .strategy-sticky {
-    position: sticky;
-    top: max(0px, calc((100vh - var(--strategy-panel-h)) / 2));
-    height: min(var(--strategy-panel-h), 100vh);
-
+    height: 100svh;
     display: flex;
-    /* "safe" keeps content from spilling above the panel
-       if the screen is too short to fit everything */
-    align-items: safe center;
-    justify-content: center;
-
+    align-items: center;
     background-color: #f5f5f5;
 }
 
-/* Keeps the visible content compact */
+/* Phones and tablets: photo stacked on top of the word wheel */
+.strategy-layout {
+    width: 100%;
+    max-width: 80rem; /* same as max-w-7xl used by the other sections */
+    margin: 0 auto;
+    padding: 0 1.5rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3vh;
+}
+
+/* Sized by the screen height so photo + words fit while pinned */
+.strategy-photo {
+    height: 38svh;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    object-position: center 20%; /* keeps her face in frame */
+}
+
 .strategy-content {
     width: 100%;
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 10px;
     text-align: center;
+}
+
+/* Laptop and up: photo on the left, word wheel on the right */
+@media (min-width: 1024px) {
+
+    .strategy-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        gap: 4rem;
+    }
+
+    .strategy-photo {
+        height: 78svh;
+        justify-self: center;
+    }
 }
 
 
 /* Small section heading */
 .strategy-heading {
     color: #737373;
-    font-size: 20px;
+    font-size: 1.25rem;
     font-weight: 500;
     letter-spacing: 0.25em;
-    margin-bottom: clamp(24px, 5vh, 56px);
+    margin-bottom: 3vh;
 }
 
 /* Visible word wheel */
-/* Height follows the screen's width AND height */
+/* The font size lives here so the wheel can be exactly 3 word-rows tall
+   (previous word, active word, next word) with no empty space.
+   The active word matches the hero headline (text-4xl, md:text-6xl).
+   main.js scales the active word up 1.3x, so the base size is the
+   headline size divided by 1.3. */
 
 .strategy-wheel {
     position: relative;
-    height: clamp(220px, min(30vw, 40vh), 440px);
+    font-size: calc(2.25rem / 1.3);
+    height: calc(3 * 1.5em);
     overflow: hidden;
 
     -webkit-mask-image: linear-gradient(
             to bottom,
             transparent 0%,
-            black 15%,
-            black 60%,
+            black 35%,
+            black 65%,
             transparent 100%
     );
 
+    /* Symmetrical fade: the active word sits in the middle of the wheel */
     mask-image: linear-gradient(
             to bottom,
             transparent 0%,
-            black 15%,
-            black 60%,
+            black 35%,
+            black 65%,
             transparent 100%
     );
 }
@@ -132,12 +188,12 @@
     justify-content: center;
 
     width: 100%;
-    height: 1.8em;
+    height: 1.5em;
     flex-shrink: 0;
 
     color: #171717;
-    font-size: clamp(28px, min(5.5vw, 7vh), 72px);
-    font-weight: 300;
+    font-family: var(--font-serif); /* same serif as the headlines */
+    font-weight: 400;
     line-height: 1;
     white-space: nowrap;
 
@@ -149,63 +205,145 @@
 /* Caption below wheel */
 /* Space above the caption matches the space below the heading */
 .strategy-caption {
-    margin-top: clamp(24px, 5vh, 56px);
+    margin-top: 3vh;
     color: #737373;
-    font-size: 20px;
+    font-size: 1.25rem;
     letter-spacing: 0.03em;
+}
+
+/* Tablet and up: matches the headline's md:text-6xl */
+@media (min-width: 768px) {
+
+    .strategy-wheel {
+        font-size: calc(3.75rem / 1.3);
+    }
+}
+
+/* Laptop and up: more breathing room */
+@media (min-width: 1024px) {
+
+    .strategy-heading {
+        margin-bottom: 6vh;
+    }
+
+    .strategy-caption {
+        margin-top: 6vh;
+    }
 }
 
 /* Mobile adjustments */
 @media (max-width: 767px) {
 
-    /* Shorter panel on mobile — the sticky rule above
-       uses this automatically, so no separate top/height needed. */
-    .strategy-section {
-        --strategy-panel-h: 480px;
-    }
-
-    /* Slightly shorter runway on mobile */
-    .strategy-scroll {
-        height: calc(var(--strategy-panel-h) + 60vh);
-    }
-
-    .strategy-content {
-        padding: 20px 16px;
-    }
-
-    /* Tighter spacing on phones */
-    .strategy-heading {
-        margin-bottom: 32px;
-    }
-
+    .strategy-heading,
     .strategy-caption {
-        margin-top: 32px;
-    }
-
-    .strategy-wheel {
-        height: 260px;
-    }
-
-    .strategy-word {
-        height: 64px;
-        font-size: 21px;
+        font-size: 1rem;
     }
 }
 
-/* Reduced motion accessibility ( not sure why i need this)*/
+/* Reduced motion accessibility: some visitors turn off animations
+   in their device settings (motion can cause dizziness).
+   main.js skips the pin and word animation for them. */
 @media (prefers-reduced-motion: reduce) {
-
-    .strategy-scroll {
-        height: auto;
-    }
-
-    .strategy-sticky {
-        position: relative;
-        top: auto;
-    }
 
     .strategy-reel,
     .strategy-word {
         will-change: auto;
+    }
+}
+/* SECTION 3: SERVICE CARD MICRO INTERACTIONS */
+
+/* On hover the card lifts, its border darkens, a soft spotlight
+   follows the cursor, the number badge pops, and a line draws
+   across the bottom. main.js feeds the cursor position into --x / --y. */
+.service-card {
+    --x: 50%;
+    --y: 50%;
+    isolation: isolate; /* keeps the spotlight behind the text */
+    background-color: #fff;
+    transition:
+            transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+            border-color 0.35s ease,
+            box-shadow 0.35s ease;
+}
+
+/* Spotlight that follows the cursor */
+.service-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: radial-gradient(
+            circle 220px at var(--x) var(--y),
+            rgba(23, 23, 23, 0.06),
+            transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    pointer-events: none;
+}
+
+/* Accent line that draws left to right along the bottom */
+.service-card::after {
+    content: "";
+    position: absolute;
+    left: -1px;
+    right: -1px;
+    bottom: -1px;
+    height: 3px;
+    background-color: #171717;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.service-number {
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.service-card h3 {
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Hover only on devices with a real mouse, so taps on phones
+   don't leave a card stuck in its highlighted state */
+@media (hover: hover) and (pointer: fine) {
+
+    .service-card:hover {
+        transform: translateY(-6px);
+        border-color: #171717;
+        box-shadow: 0 18px 40px -20px rgba(23, 23, 23, 0.35);
+    }
+
+    .service-card:hover::before {
+        opacity: 1;
+    }
+
+    .service-card:hover::after {
+        transform: scaleX(1);
+    }
+
+    .service-card:hover .service-number {
+        transform: scale(1.15) rotate(-8deg);
+    }
+
+    .service-card:hover h3 {
+        transform: translateX(4px);
+    }
+}
+
+/* Reduced motion: keep the color highlight, drop the movement */
+@media (prefers-reduced-motion: reduce) {
+
+    .service-card,
+    .service-card::after,
+    .service-number,
+    .service-card h3 {
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .service-card:hover,
+    .service-card:hover .service-number,
+    .service-card:hover h3 {
+        transform: none;
     }
 }

@@ -29,12 +29,9 @@ if (
 
     const totalWords = strategyWords.length
 
-    function getStickyTop() {
-        return parseFloat(getComputedStyle(strategySticky).top) || 0
-    }
-
+    // The active word lines up with the middle of the wheel
     function getFocusLine() {
-        return strategyWords[0].offsetHeight * 1
+        return strategyWheel.offsetHeight / 2
     }
 
     /**
@@ -107,23 +104,25 @@ if (
 
             scrollTrigger: {
 
-                // Track the outer scrolling container
-                trigger: strategyScroll,
+                // Track the gray panel
+                trigger: strategySticky,
 
-                // Begin when the panel locks in place:
-                // the container's top reaches the panel's sticky "top" line
-                start: () => `top ${getStickyTop()}px`,
+                // Lock the panel in place when its top
+                // reaches the top of the screen
+                pin: true,
+                start: 'top top',
 
-                // Finish when the panel lets go:
-                // the container's bottom reaches the panel's bottom edge
-                end: () => `bottom ${getStickyTop() + strategySticky.offsetHeight}px`,
+                // How far the visitor scrolls while the words move.
+                // GSAP adds this much space so the next section waits.
+                // Lower the number if it feels too long; raise it if words move too fast.
+                end: () => `+=${window.innerHeight * (window.innerWidth < 768 ? 0.6 : 0.8)}`,
 
                 // Follow scrolling
                 scrub: true,
 
 
-                // Recalculate start/end on resize
-                // (panel height and top change between desktop and mobile)
+                // Recalculate the reel position on resize
+                // (wheel and word sizes change between desktop and mobile)
                 invalidateOnRefresh: true,
 
                 onUpdate: (self) => {
@@ -157,3 +156,14 @@ if (
         }
     })
 }
+// Service cards: the hover spotlight follows the cursor
+document.querySelectorAll('.service-card').forEach((card) => {
+
+    card.addEventListener('pointermove', (event) => {
+
+        const rect = card.getBoundingClientRect()
+
+        card.style.setProperty('--x', `${event.clientX - rect.left}px`)
+        card.style.setProperty('--y', `${event.clientY - rect.top}px`)
+    })
+})
