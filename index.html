@@ -22,7 +22,7 @@
 
 <!-- NAVIGATION -->
 
-<nav class="border-b border-neutral-200 bg-white">
+<nav class="relative z-50 border-b border-neutral-200 bg-white">
     <div class="mx-auto max-w-7xl px-6 py-5
                 flex items-center justify-between gap-6">
 
@@ -35,7 +35,7 @@
 
         <div class="hidden md:flex items-center gap-8 text-sm">
             <a href="#work" class="hover:underline">Work</a>
-            <a href="#approach" class="hover:underline">Approach</a>
+            <a href="#strategy" class="hover:underline">Approach</a>
             <a href="#about" class="hover:underline">About</a>
             <a href="#contact" class="hover:underline">Contact</a>
         </div>
@@ -44,10 +44,35 @@
             Book a Consult
         </a>
 
-        <a href="#contact"
-           class="md:hidden text-sm underline">
-            Contact
-        </a>
+        <!-- MOBILE MENU BUTTON: Flowbite opens/closes #mobile-menu -->
+        <button type="button"
+                data-collapse-toggle="mobile-menu"
+                aria-controls="mobile-menu"
+                aria-expanded="false"
+                class="md:hidden inline-flex items-center justify-center
+                       w-11 h-11 -mr-2 rounded-lg
+                       hover:bg-neutral-100 focus:outline-none
+                       focus:ring-2 focus:ring-neutral-300">
+            <span class="sr-only">Open menu</span>
+            <svg class="w-6 h-6" aria-hidden="true" fill="none"
+                 stroke="currentColor" stroke-width="1.75"
+                 stroke-linecap="round" viewBox="0 0 24 24">
+                <path d="M4 7h16M4 12h16M4 17h16"/>
+            </svg>
+        </button>
+    </div>
+
+    <!-- MOBILE MENU (phones only, hidden until the button is tapped) -->
+    <!-- Floats over the page (absolute) so opening it does not shift the layout -->
+    <div id="mobile-menu" class="hidden md:hidden absolute inset-x-0 top-full
+                bg-white border-y border-neutral-200 shadow-lg">
+        <div class="px-6 py-4 flex flex-col text-base">
+            <a href="#work" class="py-3 border-b border-neutral-100">Work</a>
+            <a href="#strategy" class="py-3 border-b border-neutral-100">Approach</a>
+            <a href="#about" class="py-3 border-b border-neutral-100">About</a>
+            <a href="#contact" class="py-3 mb-3">Contact</a>
+            <a href="#contact" class="brand-button-outline">Book a Consult</a>
+        </div>
     </div>
 </nav>
 
@@ -188,11 +213,10 @@
             </p>
 
             <div class="grid grid-cols-1 md:grid-cols-2
-                    lg:grid-cols-4 gap-5">
+                    lg:grid-cols-4 gap-8 md:gap-5">
 
                 <!-- POSITION -->
-                <article class="service-card relative border border-neutral-300 p-7
-                            min-h-56">
+                <article class="service-card relative border border-neutral-300 p-7 md:min-h-56">
 
                 <span class="service-number absolute -top-4 left-6
                              bg-neutral-900 text-white
@@ -214,8 +238,7 @@
                 </article>
 
                 <!-- BUILD -->
-                <article class="service-card relative border border-neutral-300 p-7
-                            min-h-56">
+                <article class="service-card relative border border-neutral-300 p-7 md:min-h-56">
 
                 <span class="service-number absolute -top-4 left-6
                              bg-neutral-900 text-white
@@ -237,8 +260,7 @@
                 </article>
 
                 <!-- GO TO MARKET -->
-                <article class="service-card relative border border-neutral-300 p-7
-                            min-h-56">
+                <article class="service-card relative border border-neutral-300 p-7 md:min-h-56">
 
                 <span class="service-number absolute -top-4 left-6
                              bg-neutral-900 text-white
@@ -260,8 +282,7 @@
                 </article>
 
                 <!-- GROW -->
-                <article class="service-card relative border border-neutral-300 p-7
-                            min-h-56">
+                <article class="service-card relative border border-neutral-300 p-7 md:min-h-56">
 
                 <span class="service-number absolute -top-4 left-6
                              bg-neutral-900 text-white
@@ -288,7 +309,7 @@
 
     <!--  SECTION 4: STRATEGY BEFORE SPEND-->
 
-    <section class="bg-neutral-100 py-24">
+    <section class="bg-neutral-100 py-16 md:py-24">
 
         <div class="mx-auto max-w-4xl px-6 text-center">
 
@@ -309,11 +330,20 @@
                 available to you.
             </p>
 
-            <p class="text-sm md:text-lg font-semibold
-                  uppercase tracking-wide mb-10">
-                Customer Discovery · Market Insights · Consumer Messaging
-                · Your Go-To-Market Strategy
-            </p>
+            <!-- Stacked on phones, one dotted line on bigger screens.
+                 whitespace-nowrap keeps each phrase from breaking in half -->
+            <ul class="text-sm md:text-lg font-semibold
+                  uppercase tracking-wide mb-10
+                  flex flex-col items-center gap-2
+                  md:flex-row md:flex-wrap md:justify-center md:gap-x-3 md:gap-y-1">
+                <li class="whitespace-nowrap">Customer Discovery</li>
+                <li class="hidden md:block" aria-hidden="true">·</li>
+                <li class="whitespace-nowrap">Market Insights</li>
+                <li class="hidden md:block" aria-hidden="true">·</li>
+                <li class="whitespace-nowrap">Consumer Messaging</li>
+                <li class="hidden md:block" aria-hidden="true">·</li>
+                <li class="whitespace-nowrap">Your Go-To-Market Strategy</li>
+            </ul>
 
             <!-- GO-TO-MARKET BUTTON -->
             <a href="#contact" class="brand-button-outline">
@@ -326,7 +356,7 @@
 
     <!-- SECTION 5: SELECTED WORK -->
 
-    <section id="work" class="py-24">
+    <section id="work" class="py-16 md:py-24">
 
         <div class="mx-auto max-w-7xl px-6">
 
@@ -474,7 +504,7 @@
 
     <!-- SECTION 6: FEATURED TESTIMONIAL -->
 
-    <section class="bg-neutral-100 py-20">
+    <section class="bg-neutral-100 py-16 md:py-20">
 
         <figure class="mx-auto max-w-5xl px-6">
 
@@ -508,11 +538,11 @@
 
     <!--SECTION 8: ABOUT-->
 
-    <section id="about" class="py-24">
+    <section id="about" class="py-16 md:py-24">
 
         <div class="mx-auto max-w-7xl px-6
                 grid grid-cols-1 md:grid-cols-2
-                gap-12 items-center">
+                gap-10 md:gap-12 items-center">
 
             <!-- ABOUT IMAGE -->
             <img src="/images/lauren-about.png"
@@ -566,7 +596,7 @@
 
     <!-- SECTION 9: ADDITIONAL TESTIMONIALS -->
 
-    <section class="py-20 bg-neutral-50">
+    <section class="py-16 md:py-20 bg-neutral-50">
 
         <div class="mx-auto max-w-7xl px-6
                     grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -617,7 +647,7 @@
     <!--SECTION 10: CONTACT-->
 
     <section id="contact"
-             class="bg-neutral-900 text-white py-24">
+             class="bg-neutral-900 text-white py-16 md:py-24">
 
         <div class="mx-auto max-w-7xl px-6
                 grid grid-cols-1 md:grid-cols-2
@@ -649,7 +679,16 @@
             </div>
 
             <!-- CONTACT FORM -->
-            <form id="contact-form" class="space-y-5">
+            <!-- novalidate: Zod (src/contact-form.js) checks the fields instead of the browser -->
+            <form id="contact-form" class="space-y-5" novalidate>
+
+                <!-- HONEYPOT: hidden offscreen (see .website in index.css).
+                     Real visitors never fill it in; bots that fill every field do. -->
+                <div class="website" aria-hidden="true">
+                    <label for="website">Website</label>
+                    <input type="text" id="website" name="website"
+                           tabindex="-1" autocomplete="off">
+                </div>
 
                 <div>
                     <label for="name"
@@ -658,10 +697,11 @@
                     </label>
 
                     <input id="name" name="name"
-                           type="text" required
-                           class="w-full bg-neutral-800
-                              border border-neutral-600
-                              text-white p-3">
+                           type="text" autocomplete="name"
+                           aria-describedby="nameError"
+                           class="contact-input">
+
+                    <p id="nameError" class="contact-error hidden"></p>
                 </div>
 
                 <div>
@@ -671,23 +711,27 @@
                     </label>
 
                     <input id="email" name="email"
-                           type="email" required
-                           class="w-full bg-neutral-800
-                              border border-neutral-600
-                              text-white p-3">
+                           type="email" autocomplete="email"
+                           aria-describedby="emailError"
+                           class="contact-input">
+
+                    <p id="emailError" class="contact-error hidden"></p>
                 </div>
 
+                <!-- Sent to the backend as "subject" (used in the email subject line) -->
                 <div>
-                    <label for="company"
+                    <label for="subject"
                            class="block text-sm mb-2">
                         Company / Project
+                        <span class="text-neutral-400">(optional)</span>
                     </label>
 
-                    <input id="company" name="company"
-                           type="text"
-                           class="w-full bg-neutral-800
-                              border border-neutral-600
-                              text-white p-3">
+                    <input id="subject" name="subject"
+                           type="text" autocomplete="organization"
+                           aria-describedby="subjectError"
+                           class="contact-input">
+
+                    <p id="subjectError" class="contact-error hidden"></p>
                 </div>
 
                 <div>
@@ -697,16 +741,22 @@
                     </label>
 
                     <textarea id="message" name="message"
-                              rows="4" required
-                              class="w-full bg-neutral-800
-                                 border border-neutral-600
-                                 text-white p-3"></textarea>
+                              rows="4" maxlength="500"
+                              aria-describedby="messageError"
+                              class="contact-input"></textarea>
+
+                    <p id="messageError" class="contact-error hidden"></p>
                 </div>
 
-                <button type="submit" class="brand-button-outline-light">
+                <button type="submit" class="brand-button-outline-light
+                                             w-full sm:w-auto
+                                             disabled:opacity-50 disabled:cursor-wait">
                     Send Message
                 </button>
 
+                <!-- Success or error message after sending -->
+                <div id="status" class="hidden p-4 text-sm rounded-lg"
+                     role="status" aria-live="polite"></div>
 
             </form>
 
