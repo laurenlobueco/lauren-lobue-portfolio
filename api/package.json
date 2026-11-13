@@ -1,0 +1,20 @@
+{
+  "name": "lauren-lobue-contact-api",
+  "version": "1.0.0",
+  "description": "Backend that sends portfolio contact form submissions through Mailgun",
+  "private": true,
+  "type": "module",
+  "main": "index.mjs",
+  "scripts": {
+    "start": "node index.mjs",
+    "test": "node test.mjs"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "form-data": "^4.0.2",
+    "mailgun.js": "^12.0.0",
+    "morgan": "^1.10.0",
+    "zod": "^3.24.2"
+  }
+}

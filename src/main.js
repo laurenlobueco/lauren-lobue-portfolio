@@ -3,6 +3,26 @@
 import 'flowbite'
 import './index.css'
 
+// Contact form validation and sending
+import { contactForm } from './contact-form.js'
+
+contactForm()
+
+// Mobile menu: close it after a link is tapped so the page isn't covered.
+// (Flowbite's data-collapse-toggle opens/closes it from the button.)
+const mobileMenu = document.getElementById('mobile-menu')
+const mobileMenuButton = document.querySelector('[data-collapse-toggle="mobile-menu"]')
+
+if (mobileMenu && mobileMenuButton) {
+    mobileMenu.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', () => {
+            if (!mobileMenu.classList.contains('hidden')) {
+                mobileMenuButton.click()
+            }
+        })
+    })
+}
+
 // Import GSAP
 // GSAP stands for GreenSock Animation Platform. It’s a JavaScript library for animating things on a web page: moving, scaling, fading, rotating, or changing the color of elements smoothly
 import gsap from 'gsap'

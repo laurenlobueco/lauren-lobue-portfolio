@@ -1,7 +1,9 @@
 name: Deploy via SSH
 'on':
-  - push
-  - repository_dispatch
+  # Only deploy the live site from main, not from feature branches
+  push:
+    branches: [main]
+  repository_dispatch:
 permissions:
   actions: read
   contents: read
